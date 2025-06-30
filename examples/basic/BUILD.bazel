@@ -1,0 +1,16 @@
+sh_binary(
+    name = "basic",
+    data = [
+        "@alloydb_auth_proxy_executable//:executable",
+        "@helm_executable//:executable",
+        "@kubectl_executable//:executable",
+    ],
+    srcs = [
+        "main.sh",
+    ],
+    env = {
+        "ALLOYDB_AUTH_PROXY": "$(rootpath @alloydb_auth_proxy_executable//:executable)",
+        "HELM": "$(rootpath @helm_executable//:executable)",
+        "KUBECTL": "$(rootpath @kubectl_executable//:executable)",
+    }
+)

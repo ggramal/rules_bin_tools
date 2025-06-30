@@ -1,0 +1,18 @@
+module(name = "rules_bin_tools_examples")
+
+bazel_dep(name = "rules_bin_tools")
+local_path_override(
+    module_name = "rules_bin_tools",
+    path = ".."
+)
+
+tools = use_extension("@rules_bin_tools//tools:extensions.bzl", "tools")
+
+tools.download(
+    alloydb_auth_proxy_version = "v1.13.2",
+    helm_version = "v3.18.3",
+    kubectl_version = "v1.33.0",
+)
+use_repo(tools, "alloydb_auth_proxy_executable")
+use_repo(tools, "helm_executable")
+use_repo(tools, "kubectl_executable")

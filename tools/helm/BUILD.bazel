@@ -1,0 +1,8 @@
+exports_files(
+    glob([
+        "*.bzl",
+    ]),
+    visibility = [
+        "//tools:__subpackages__",
+    ],
+)
