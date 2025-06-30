@@ -26,8 +26,7 @@ filegroup(
     srcs = ["{tool}"],
     visibility = ["//visibility:public"]
 )
-""".format(tool=_TOOL_NAME))
-
+""".format(tool = _TOOL_NAME))
 
 alloydb_auth_proxy_download = repository_rule(
     implementation = _download_impl,

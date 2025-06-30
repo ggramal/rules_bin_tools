@@ -1,6 +1,7 @@
 """
 This module contains code for downloading kubectl tool 
 """
+
 load("@rules_bin_tools//tools:utils.bzl", "get_sha256sum")
 
 _TOOL_NAME = "kubectl"
@@ -13,9 +14,7 @@ def _download_impl(ctx):
         arch = ctx.attr.arch,
     )
 
-
     url_sha256sum = url + ".sha256"
-
 
     ctx.download(
         url = [url_sha256sum],
@@ -40,8 +39,7 @@ filegroup(
     srcs = ["{tool}"],
     visibility = ["//visibility:public"]
 )
-""".format(tool=_TOOL_NAME))
-
+""".format(tool = _TOOL_NAME))
 
 kubectl_download = repository_rule(
     implementation = _download_impl,

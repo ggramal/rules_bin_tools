@@ -1,6 +1,7 @@
 """
 This module contains code for downloading helm tool 
 """
+
 load("@rules_bin_tools//tools:utils.bzl", "get_sha256sum")
 
 _TOOL_NAME = "helm"
@@ -12,11 +13,10 @@ def _download_impl(ctx):
         os = ctx.attr.os,
         arch = ctx.attr.arch,
     )
-    url  = "https://get.helm.sh/{file}".format(
-        file = file
+    url = "https://get.helm.sh/{file}".format(
+        file = file,
     )
     url_sha256sum = url + ".sha256sum"
-
 
     ctx.download(
         url = [url_sha256sum],
@@ -31,10 +31,9 @@ def _download_impl(ctx):
     ctx.download_and_extract(
         url = url,
         sha256 = sha256sum,
-        type = "tar.gz", 
-        output = _TOOL_NAME, 
+        type = "tar.gz",
+        output = _TOOL_NAME,
     )
-
 
     ctx.file("BUILD.bazel", """
 package(default_visibility = ["//visibility:public"])
@@ -44,8 +43,7 @@ filegroup(
     srcs = ["{tool}/{os}-{arch}/{tool}"],
     visibility = ["//visibility:public"]
 )
-""".format(tool=_TOOL_NAME, os=ctx.attr.os, arch=ctx.attr.arch))
-
+""".format(tool = _TOOL_NAME, os = ctx.attr.os, arch = ctx.attr.arch))
 
 helm_download = repository_rule(
     implementation = _download_impl,

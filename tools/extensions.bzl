@@ -34,8 +34,6 @@ def _impl(ctx):
                     arch = host_arch,
                 )
 
-
-
 _download = tag_class(
     attrs = {
         "alloydb_auth_proxy_version": attr.string(),
