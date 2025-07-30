@@ -1,21 +1,32 @@
 """
-This module contains code for downloading glab tool 
+This module contains code for downloading helm tool 
 """
 
-_TOOL_NAME = "glab"
+load("@rules_bin_tools//tools:utils.bzl", "get_sha256sum")
+
+_TOOL_NAME = "helm"
 
 def _download_impl(ctx):
-    file_verison = ctx.attr.version.removeprefix("v")
-    file = "{tool}_{version}_{os}_{arch}.tar.gz".format(
+    file = "{tool}-{version}-{os}-{arch}.tar.gz".format(
         tool = _TOOL_NAME,
-        version = file_version,
+        version = ctx.attr.version,
         os = ctx.attr.os,
         arch = ctx.attr.arch,
     )
-    url = "https://gitlab.com/gitlab-org/cli/-/releases/{version}/downloads/{file}".format(
-        version = ctx.attr.version,
+    url = "https://get.helm.sh/{file}".format(
         file = file,
     )
+    url_sha256sum = url + ".sha256sum"
+
+    ctx.download(
+        url = [url_sha256sum],
+        output = "sha256sum",
+    )
+
+    data = ctx.read("sha256sum")
+    sha256sum = get_sha256sum(data, file)
+    if sha256sum == None or sha256sum == "":
+        fail("Could not find sha256sum for file {}".format(file))
 
     ctx.download_and_extract(
         url = url,
@@ -29,12 +40,12 @@ package(default_visibility = ["//visibility:public"])
 
 filegroup(
     name = "executable",
-    srcs = ["bin/{tool}"],
+    srcs = ["{tool}/{os}-{arch}/{tool}"],
     visibility = ["//visibility:public"]
 )
 """.format(tool = _TOOL_NAME, os = ctx.attr.os, arch = ctx.attr.arch))
 
-glab_download = repository_rule(
+helm_download = repository_rule(
     implementation = _download_impl,
     attrs = {
         "version": attr.string(mandatory = True),

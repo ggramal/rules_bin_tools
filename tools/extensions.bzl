@@ -27,6 +27,14 @@ def _impl(ctx):
                     os = host_os,
                     arch = host_arch,
                 )
+            if tag.glab_version:
+                glab_download(
+                    name = "glab_" + tag.suffix,
+                    version = tag.glab_version,
+                    os = host_os,
+                    arch = host_arch,
+                )
+
             if tag.kubectl_version:
                 kubectl_download(
                     name = "kubectl_" + tag.suffix,
@@ -42,12 +50,12 @@ def _impl(ctx):
                     arch = host_arch,
                 )
 
-
 _download = tag_class(
     attrs = {
         "alloydb_auth_proxy_version": attr.string(),
         "cloud_sql_proxy_version": attr.string(),
         "helm_version": attr.string(),
+        "glab_version": attr.string(),
         "kubectl_version": attr.string(),
         "suffix": attr.string(default = "executable"),
     },
