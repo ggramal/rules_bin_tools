@@ -15,6 +15,15 @@ By leveraging Bazel, we eliminate the need for team members to manually manage t
 This approach ensures consistency, reduces setup time, and prevents version drift across environments.
 
 
+## Tools
+
+1. [helm](https://helm.sh/docs/intro/install/)
+2. [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+3. [alloydb_auth_proxy](https://github.com/GoogleCloudPlatform/alloydb-auth-proxy)
+4. [cloud_sql_proxy](https://github.com/GoogleCloudPlatform/cloud-sql-prox)
+5. [glab](https://gitlab.com/gitlab-org/cli/#installation)
+
+
 ## Instalation
 
 To import rules_binary_tools in your project, you first need to add it to your `MODULE.bazel` file:
