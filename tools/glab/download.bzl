@@ -12,10 +12,26 @@ def _download_impl(ctx):
         os = ctx.attr.os,
         arch = ctx.attr.arch,
     )
-    url = "https://gitlab.com/gitlab-org/cli/-/releases/{version}/downloads/{file}".format(
+    url = "https://gitlab.com/gitlab-org/cli/-/releases/{version}/downloads".format(
         version = ctx.attr.version,
+    )
+
+    url_file = "{url}/{file}".format(
+        url  = url,
         file = file,
     )
+
+    url_sha256sum = url + "/checksums.txt"
+
+    ctx.download(
+        url = [url_sha256sum],
+        output = "sha256sum",
+    )
+
+    data = ctx.read("sha256sum")
+    sha256sum = get_sha256sum(data, file)
+    if sha256sum == None or sha256sum == "":
+        fail("Could not find sha256sum for file {}".format(file))8
 
     ctx.download_and_extract(
         url = url,
