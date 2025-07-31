@@ -4,7 +4,9 @@ module extensions
 
 load("@rules_bin_tools//tools:utils.bzl", "detect_host_platform")
 load("@rules_bin_tools//tools/alloydb_auth_proxy:download.bzl", "alloydb_auth_proxy_download")
+load("@rules_bin_tools//tools/cloud_sql_proxy:download.bzl", "cloud_sql_proxy_download")
 load("@rules_bin_tools//tools/helm:download.bzl", "helm_download")
+load("@rules_bin_tools//tools/glab:download.bzl", "glab_download")
 load("@rules_bin_tools//tools/kubectl:download.bzl", "kubectl_download")
 
 def _impl(ctx):
@@ -26,6 +28,14 @@ def _impl(ctx):
                     os = host_os,
                     arch = host_arch,
                 )
+            if tag.glab_version:
+                glab_download(
+                    name = "glab_" + tag.suffix,
+                    version = tag.glab_version,
+                    os = host_os,
+                    arch = host_arch,
+                )
+
             if tag.kubectl_version:
                 kubectl_download(
                     name = "kubectl_" + tag.suffix,
@@ -33,11 +43,20 @@ def _impl(ctx):
                     os = host_os,
                     arch = host_arch,
                 )
+            if tag.cloud_sql_proxy_version:
+                cloud_sql_proxy_download(
+                    name = "cloud_sql_proxy_" + tag.suffix,
+                    version = tag.cloud_sql_proxy_version,
+                    os = host_os,
+                    arch = host_arch,
+                )
 
 _download = tag_class(
     attrs = {
         "alloydb_auth_proxy_version": attr.string(),
+        "cloud_sql_proxy_version": attr.string(),
         "helm_version": attr.string(),
+        "glab_version": attr.string(),
         "kubectl_version": attr.string(),
         "suffix": attr.string(default = "executable"),
     },
