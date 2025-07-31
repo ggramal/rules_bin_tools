@@ -6,6 +6,7 @@ load("@rules_bin_tools//tools:utils.bzl", "detect_host_platform")
 load("@rules_bin_tools//tools/alloydb_auth_proxy:download.bzl", "alloydb_auth_proxy_download")
 load("@rules_bin_tools//tools/cloud_sql_proxy:download.bzl", "cloud_sql_proxy_download")
 load("@rules_bin_tools//tools/helm:download.bzl", "helm_download")
+load("@rules_bin_tools//tools/glab:download.bzl", "glab_download")
 load("@rules_bin_tools//tools/kubectl:download.bzl", "kubectl_download")
 
 def _impl(ctx):
