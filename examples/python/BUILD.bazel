@@ -1,0 +1,13 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
+py_binary(
+    name = "run",
+    srcs = ["run.py"],
+    data = [
+        "@glab_executable//:executable",
+    ],
+    env = {
+        "GLAB_EXECUTABLE": "$(rootpath @glab_executable//:executable)",
+    },
+    visibility = ["//visibility:public"],
+)
