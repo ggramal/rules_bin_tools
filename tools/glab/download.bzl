@@ -35,7 +35,7 @@ def _download_impl(ctx):
         fail("Could not find sha256sum for file {}".format(file))
 
     ctx.download_and_extract(
-        url = url,
+        url = url_file,
         sha256 = sha256sum,
         type = "tar.gz",
         output = _TOOL_NAME,
