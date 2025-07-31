@@ -46,7 +46,7 @@ package(default_visibility = ["//visibility:public"])
 
 filegroup(
     name = "executable",
-    srcs = ["bin/{tool}"],
+    srcs = ["{tool}/bin/{tool}"],
     visibility = ["//visibility:public"]
 )
 """.format(tool = _TOOL_NAME, os = ctx.attr.os, arch = ctx.attr.arch))
