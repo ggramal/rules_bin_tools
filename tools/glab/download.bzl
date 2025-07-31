@@ -1,6 +1,7 @@
 """
 This module contains code for downloading glab tool 
 """
+load("@rules_bin_tools//tools:utils.bzl", "get_sha256sum")
 
 _TOOL_NAME = "glab"
 
