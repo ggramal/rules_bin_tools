@@ -6,7 +6,7 @@ load("@rules_bin_tools//tools:utils.bzl", "get_sha256sum")
 _TOOL_NAME = "glab"
 
 def _download_impl(ctx):
-    file_verison = ctx.attr.version.removeprefix("v")
+    file_version = ctx.attr.version.removeprefix("v")
     file = "{tool}_{version}_{os}_{arch}.tar.gz".format(
         tool = _TOOL_NAME,
         version = file_version,
